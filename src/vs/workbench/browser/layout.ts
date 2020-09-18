@@ -390,6 +390,9 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		// Panel position
 		this.updatePanelPosition();
 
+		// Was the panel last maximized
+		this.state.panel.wasLastMaximized = this.storageService.getBoolean(Storage.PANEL_LAST_IS_MAXIMIZED, StorageScope.WORKSPACE, false);
+
 		if (!this.state.zenMode.active) {
 
 			// Statusbar visibility
@@ -1604,8 +1607,8 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 			this.storageService.remove(Storage.PANEL_HIDDEN, StorageScope.WORKSPACE);
 
 			// Remember this setting only when panel is hiding
-			if (!this.state.panel.wasLastMaximized) {
-				this.storageService.store(Storage.PANEL_LAST_IS_MAXIMIZED, 'false', StorageScope.WORKSPACE);
+			if (this.state.panel.wasLastMaximized) {
+				this.storageService.store(Storage.PANEL_LAST_IS_MAXIMIZED, true, StorageScope.WORKSPACE);
 			}
 			else {
 				this.storageService.remove(Storage.PANEL_LAST_IS_MAXIMIZED, StorageScope.WORKSPACE);
