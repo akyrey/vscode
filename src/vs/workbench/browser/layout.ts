@@ -390,9 +390,6 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
 		// Panel position
 		this.updatePanelPosition();
 
-		// Was the panel last maximized
-		this.state.panel.wasLastMaximized = this.storageService.getBoolean(Storage.PANEL_LAST_IS_MAXIMIZED, StorageScope.WORKSPACE, false);
-
 		if (!this.state.zenMode.active) {
 
 			// Statusbar visibility
